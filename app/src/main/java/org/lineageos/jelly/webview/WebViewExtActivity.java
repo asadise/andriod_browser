@@ -18,6 +18,8 @@ package org.lineageos.jelly.webview;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.ValueCallback;
+import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,4 +40,6 @@ public abstract class WebViewExtActivity extends AppCompatActivity {
     public abstract void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback);
 
     public abstract void onHideCustomView();
+
+    public abstract void showFileChooser(ValueCallback<Uri[]> filePathCallback);
 }

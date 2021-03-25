@@ -78,14 +78,15 @@ class ChromeClient extends WebChromeClientCompat {
     @Override
     public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> path,
                                      FileChooserParams params) {
-        Intent intent = params.createIntent();
+             mActivity.showFileChooser(path);
+        /*Intent intent = params.createIntent();
         try {
             mActivity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(mActivity, mActivity.getString(R.string.error_no_activity_found),
                     Toast.LENGTH_LONG).show();
             return false;
-        }
+        }*/
         return true;
     }
 

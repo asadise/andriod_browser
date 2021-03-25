@@ -41,8 +41,8 @@ public class WebViewExt extends WebView {
     private static final String TAG = "WebViewExt";
 
     private static final String DESKTOP_DEVICE = "X11; Linux x86_64";
-    private static final String  MOBILE_USER_AGENT_FALLBACK = "Mozilla/5.0 (Android 11; Mobile; rv:68.0) Gecko/68.0 Firefox/84.0";
-    private static final String DESKTOP_USER_AGENT_FALLBACK = "Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0";
+    private static final String  MOBILE_USER_AGENT_FALLBACK = "Mozilla/5.0 (Android 11; Mobile; rv:68.0) Gecko/68.0 Firefox/86.0";
+    private static final String DESKTOP_USER_AGENT_FALLBACK = "Mozilla/5.0 (X11; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0";
     private static final String HEADER_DNT = "DNT";
     private final Map<String, String> mRequestHeaders = new ArrayMap<>();
     private WebViewExtActivity mActivity;

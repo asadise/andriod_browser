@@ -69,6 +69,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.webkit.ValueCallback;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -722,9 +723,9 @@ public class MainActivity extends WebViewExtActivity implements
     }
 
     private int getThemeColorWithFallback() {
-        if (mThemeColor != Color.TRANSPARENT) {
+        /*if (mThemeColor != Color.TRANSPARENT) {
             return mThemeColor;
-        }
+        }*/
         return ContextCompat.getColor(this,
                 mWebView.isIncognito() ? R.color.colorIncognito : R.color.colorPrimary);
     }
@@ -945,6 +946,7 @@ public class MainActivity extends WebViewExtActivity implements
     }
     private String nameSaveWebArchive() {
         return mWebView.getTitle().replaceAll("[^a-zA-Z0-9\\-]", "_")
+                + new Integer(mThemeColor).toString()
                 + ".mht";
     }
 
@@ -982,5 +984,38 @@ public class MainActivity extends WebViewExtActivity implements
                 } else mWebView.saveWebArchive(pathSaveWebArchive() + nameSaveWebArchive());
             } else mWebView.saveWebArchive(pathSaveWebArchive() + nameSaveWebArchive());
         }
+
+        if(requestCode == INPUT_FILE_REQUEST_CODE && mFilePathCallback != null) {
+            Uri[] results = null;
+            // Check that the response is a good one
+
+                if(resultData != null) {
+                    // If there is not data, then we may have taken a photo
+                    String dataString = resultData.getDataString();
+                    if (dataString != null) {
+                        results = new Uri[]{Uri.parse(dataString)};
+                    }
+                }
+
+            mFilePathCallback.onReceiveValue(results);
+            mFilePathCallback = null;
+        }
+    }
+
+    private static final int INPUT_FILE_REQUEST_CODE = 1;
+    private ValueCallback<Uri[]> mFilePathCallback;
+
+    @Override
+    public void showFileChooser(ValueCallback<Uri[]> filePathCallback) {
+        if(mFilePathCallback != null) {
+            mFilePathCallback.onReceiveValue(null);
+        }
+        mFilePathCallback = filePathCallback;
+        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        contentSelectionIntent.setType("*/*");
+        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+        startActivityForResult(chooserIntent, INPUT_FILE_REQUEST_CODE);
     }
 }

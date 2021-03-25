@@ -30,7 +30,7 @@
         </intent>
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
-    <shortcut
+    <!-- <shortcut
         android:shortcutId="newtab"
         android:enabled="true"
         android:icon="@drawable/ic_new_tab"
@@ -55,5 +55,5 @@
             android:targetPackage="com.oF2pks.jquarks"
             android:targetClass="org.lineageos.jelly.favorite.FavoriteActivity" />
         <categories android:name="android.shortcut.conversation" />
-    </shortcut>
+    </shortcut> -->
 </shortcuts>
